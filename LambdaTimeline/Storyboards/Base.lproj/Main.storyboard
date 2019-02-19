@@ -162,6 +162,7 @@
                                             <segment title="Instant"/>
                                             <segment title="Noir"/>
                                             <segment title="Vignette"/>
+                                            <segment title="Gloom"/>
                                         </segments>
                                         <connections>
                                             <action selector="segmentedControlSegmentSelectedAction:" destination="1Aw-4e-BW2" eventType="valueChanged" id="CrV-Zd-wKo"/>
@@ -222,6 +223,7 @@
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="top" secondItem="9qd-If-ddw" secondAttribute="top" id="3tV-sW-NF1"/>
                                     <constraint firstItem="IvJ-xM-Gdx" firstAttribute="leading" secondItem="9qd-If-ddw" secondAttribute="leading" constant="8" id="D5T-0w-fyK"/>
                                     <constraint firstItem="8fC-UY-v5c" firstAttribute="leading" secondItem="9qd-If-ddw" secondAttribute="leading" constant="20" id="FWO-QI-RLd"/>
+                                    <constraint firstItem="IvJ-xM-Gdx" firstAttribute="leading" secondItem="9qd-If-ddw" secondAttribute="leading" constant="8" id="Q9Y-oG-NJp"/>
                                     <constraint firstAttribute="trailing" secondItem="8fC-UY-v5c" secondAttribute="trailing" constant="20" id="Vhu-Ij-Lha"/>
                                     <constraint firstAttribute="trailing" secondItem="IvJ-xM-Gdx" secondAttribute="trailing" constant="8" id="YeG-5F-htD"/>
                                     <constraint firstItem="IvJ-xM-Gdx" firstAttribute="top" secondItem="lsh-bx-dRx" secondAttribute="bottom" constant="8" symbolic="YES" id="a7h-BU-dfH"/>

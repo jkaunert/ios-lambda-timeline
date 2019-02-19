@@ -22,8 +22,8 @@ class ImagePostViewController: ShiftableViewController {
         super.viewDidLoad()
         
         //configure Vignette slider
-        configureSlider(radiusSlider, from: filter4.attributes["inputRadius"])
-        configureSlider(intensitySlider, from: filter4.attributes["inputIntensity"])
+        configureSlider(radiusSlider, from: selectedFilter.attributes["inputRadius"])
+        configureSlider(intensitySlider, from: selectedFilter.attributes["inputIntensity"])
         
         setImageViewHeight(with: 1.0)
         
@@ -158,9 +158,10 @@ class ImagePostViewController: ShiftableViewController {
                 vignetteSliderStack.isHidden = true
             case 4:
                 selectedFilter = filter4
-                if filterChooserSegmentedControl.selectedSegmentIndex == 4 {
-                    vignetteSliderStack.isHidden = false
-                }
+                vignetteSliderStack.isHidden = false
+            case 5:
+                selectedFilter = filter5
+                vignetteSliderStack.isHidden = false
             default:
                 vignetteSliderStack.isHidden = true
         }
@@ -173,6 +174,7 @@ class ImagePostViewController: ShiftableViewController {
     private let filter2 = CIFilter(name: "CIPhotoEffectInstant")!
     private let filter3 = CIFilter(name: "CIPhotoEffectNoir")!
     private let filter4 = CIFilter(name: "CIVignette")!
+    private let filter5 = CIFilter(name: "CIGloom")!
     //FIXME: -
     private var selectedFilter: CIFilter = CIFilter(name: "CIColorInvert")!
     private let context = CIContext(options: nil)
@@ -219,7 +221,7 @@ class ImagePostViewController: ShiftableViewController {
         }
         selectedFilter.setValue(inputImage, forKey: kCIInputImageKey)
         
-        if filterChooserSegmentedControl.selectedSegmentIndex == 4 {
+        if filterChooserSegmentedControl.selectedSegmentIndex == 4 || filterChooserSegmentedControl.selectedSegmentIndex == 5 {
             
             selectedFilter.setValue(radiusSlider.value, forKey: "inputRadius")
             selectedFilter.setValue(intensitySlider.value, forKey: "inputIntensity")
@@ -257,9 +259,7 @@ extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigation
         filterChooserSegmentedControl.isHidden = false
         chooseFilterLabel.isHidden = false
         
-        if filterChooserSegmentedControl.selectedSegmentIndex == 4 {
-            vignetteSliderStack.isHidden = false
-        }
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
