@@ -154,7 +154,7 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IvJ-xM-Gdx">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="IvJ-xM-Gdx">
                                         <rect key="frame" x="8" y="451.5" width="359" height="29"/>
                                         <segments>
                                             <segment title="Invert"/>
@@ -163,6 +163,9 @@
                                             <segment title="Noir"/>
                                             <segment title="Vignette"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="segmentedControlSegmentSelectedAction:" destination="1Aw-4e-BW2" eventType="valueChanged" id="CrV-Zd-wKo"/>
+                                        </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a Filter:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsh-bx-dRx">
                                         <rect key="frame" x="128" y="423" width="119.5" height="20.5"/>
@@ -184,6 +187,9 @@
                                                     </label>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OBN-RS-VT5">
                                                         <rect key="frame" x="76" y="0.0" width="261" height="31"/>
+                                                        <connections>
+                                                            <action selector="sliderChanged:" destination="1Aw-4e-BW2" eventType="valueChanged" id="ukq-Tv-hnN"/>
+                                                        </connections>
                                                     </slider>
                                                 </subviews>
                                             </stackView>
@@ -198,6 +204,9 @@
                                                     </label>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FvX-vI-WUP">
                                                         <rect key="frame" x="76" y="0.0" width="261" height="31"/>
+                                                        <connections>
+                                                            <action selector="sliderChanged:" destination="1Aw-4e-BW2" eventType="valueChanged" id="vdd-Uv-amm"/>
+                                                        </connections>
                                                     </slider>
                                                 </subviews>
                                                 <viewLayoutGuide key="safeArea" id="0PI-H1-OQy"/>
@@ -252,7 +261,9 @@
                         <outlet property="filterChooserSegmentedControl" destination="IvJ-xM-Gdx" id="q6l-9l-7FT"/>
                         <outlet property="imageHeightConstraint" destination="MHD-wr-Gq9" id="HyG-8g-Ck1"/>
                         <outlet property="imageView" destination="4eK-5F-H5h" id="e7m-c5-Xhz"/>
+                        <outlet property="intensitySlider" destination="FvX-vI-WUP" id="c7E-Ae-cBG"/>
                         <outlet property="postButton" destination="hsH-Uv-tug" id="ZBn-KE-cpU"/>
+                        <outlet property="radiusSlider" destination="OBN-RS-VT5" id="bC5-zI-TcI"/>
                         <outlet property="titleTextField" destination="Op6-OA-6Ou" id="JEe-cj-4mv"/>
                         <outlet property="vignetteSliderStack" destination="8fC-UY-v5c" id="2yI-2I-gvD"/>
                     </connections>
