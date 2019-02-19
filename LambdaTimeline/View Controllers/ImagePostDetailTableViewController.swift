@@ -67,6 +67,7 @@ class ImagePostDetailTableViewController: UITableViewController {
             self.presentAddTextCommentAlert()
         }
         let addVoiceCommentAction = UIAlertAction(title: "Add Voice Comment", style: .default) { (_) in
+            // custom segue for recorder
             self.performSegue(withIdentifier: "AudioRecorderModalVC", sender: self)
         }
         let chooseCommentTypeCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
