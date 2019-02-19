@@ -29,9 +29,8 @@ class ImagePostDetailTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
-    @IBAction func createComment(_ sender: Any) {
-        
+    private func presentAddTextCommentAlert() {
+        // Add Text Comment Alert
         let alert = UIAlertController(title: "Add a comment", message: "Write your comment below:", preferredStyle: .alert)
         
         var commentTextField: UITextField?
@@ -59,6 +58,32 @@ class ImagePostDetailTableViewController: UITableViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    private func presentChooseCommentTypeAlert() {
+        // Choose Comment Type Alert
+        let chooseCommentTypeAlert = UIAlertController(title: "Which type of comment do you want to leave?", message: nil, preferredStyle: .alert)
+        let addTextCommentAction = UIAlertAction(title: "Add Text Comment", style: .default) { (_) in
+            
+            self.presentAddTextCommentAlert()
+        }
+        let addVoiceCommentAction = UIAlertAction(title: "Add Voice Comment", style: .default) { (_) in
+            
+        }
+        let chooseCommentTypeCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        chooseCommentTypeAlert.addAction(addTextCommentAction)
+        chooseCommentTypeAlert.addAction(addVoiceCommentAction)
+        chooseCommentTypeAlert.addAction(chooseCommentTypeCancelAction)
+        
+        present(chooseCommentTypeAlert, animated: true, completion: nil)
+    }
+    
+    @IBAction func createComment(_ sender: Any) {
+        
+        presentChooseCommentTypeAlert()
+     
+    }
+    
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (post?.comments.count ?? 0) - 1
