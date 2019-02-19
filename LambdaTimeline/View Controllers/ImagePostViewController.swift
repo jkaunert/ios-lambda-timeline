@@ -24,6 +24,9 @@ class ImagePostViewController: ShiftableViewController {
         guard let imageData = imageData,
             let image = UIImage(data: imageData) else {
                 title = "New Post"
+                filterChooserSegmentedControl.isHidden = true
+                chooseFilterLabel.isHidden = true
+                vignetteSliderStack.isHidden = true
                 return
         }
         
@@ -121,6 +124,18 @@ class ImagePostViewController: ShiftableViewController {
     @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var postButton: UIBarButtonItem!
+    
+    //MARK: - Filter Picker SegmentedControl, shows only after user chooses photo
+    
+    @IBOutlet weak var chooseFilterLabel: UILabel!
+    
+    @IBOutlet weak var filterChooserSegmentedControl: UISegmentedControl!
+    
+    //MARK: - Filter Slider controls
+    
+    @IBOutlet weak var vignetteSliderStack: UIStackView!
+    
+    
 }
 
 extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -136,6 +151,13 @@ extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigation
         imageView.image = image
         
         setImageViewHeight(with: image.ratio)
+        
+        //MARK: - Filters
+        filterChooserSegmentedControl.isHidden = false
+        chooseFilterLabel.isHidden = false
+        
+        vignetteSliderStack.isHidden = false
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
