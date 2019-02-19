@@ -13,7 +13,10 @@ class ImagePostViewController: ShiftableViewController {
     
     private var originalImage: UIImage? {
         didSet {
-            updateImageView()
+            
+            DispatchQueue.main.async {
+                self.updateImageView()
+            }
         }
     }
     
@@ -22,8 +25,8 @@ class ImagePostViewController: ShiftableViewController {
         super.viewDidLoad()
         
         //configure Vignette slider
-        configureSlider(radiusSlider, from: selectedFilter.attributes["inputRadius"])
-        configureSlider(intensitySlider, from: selectedFilter.attributes["inputIntensity"])
+        configureSlider(radiusSlider, from: selectedFilter?.attributes["inputRadius"])
+        configureSlider(intensitySlider, from: selectedFilter?.attributes["inputIntensity"])
         
         setImageViewHeight(with: 1.0)
         
@@ -165,7 +168,9 @@ class ImagePostViewController: ShiftableViewController {
             default:
                 vignetteSliderStack.isHidden = true
         }
-        updateImageView()
+        DispatchQueue.main.async {
+            self.updateImageView()
+        }
         
     }
     //MARK: - Filter Slider controls
@@ -175,8 +180,8 @@ class ImagePostViewController: ShiftableViewController {
     private let filter3 = CIFilter(name: "CIPhotoEffectNoir")!
     private let filter4 = CIFilter(name: "CIVignette")!
     private let filter5 = CIFilter(name: "CIGloom")!
-    //FIXME: -
-    private var selectedFilter: CIFilter = CIFilter(name: "CIColorInvert")!
+
+    private var selectedFilter: CIFilter?
     private let context = CIContext(options: nil)
     
     @IBOutlet weak var vignetteSliderStack: UIStackView!
@@ -185,12 +190,16 @@ class ImagePostViewController: ShiftableViewController {
     @IBOutlet weak var intensitySlider: UISlider!
     
     @IBAction func sliderChanged(_ sender: Any) {
-        updateImageView()
+        DispatchQueue.main.async {
+            self.updateImageView()
+        }
     }
     
     private func updateImageView() {
         guard let image = originalImage else { return }
-        imageView?.image = applyFilterToImage(to: image)
+        DispatchQueue.main.async {
+            self.imageView?.image = self.applyFilterToImage(to: image)
+        }
     }
     
     private func configureSlider(_ slider: UISlider, from attributes: Any?) {
@@ -219,15 +228,15 @@ class ImagePostViewController: ShiftableViewController {
         }else {
             return image
         }
-        selectedFilter.setValue(inputImage, forKey: kCIInputImageKey)
+        selectedFilter?.setValue(inputImage, forKey: kCIInputImageKey)
         
         if filterChooserSegmentedControl.selectedSegmentIndex == 4 || filterChooserSegmentedControl.selectedSegmentIndex == 5 {
             
-            selectedFilter.setValue(radiusSlider.value, forKey: "inputRadius")
-            selectedFilter.setValue(intensitySlider.value, forKey: "inputIntensity")
+            selectedFilter?.setValue(radiusSlider.value, forKey: "inputRadius")
+            selectedFilter?.setValue(intensitySlider.value, forKey: "inputIntensity")
         }
        
-        guard let outputImage = selectedFilter.outputImage else {
+        guard let outputImage = selectedFilter?.outputImage else {
             return image
         }
         
