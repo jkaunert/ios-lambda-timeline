@@ -14,9 +14,8 @@ class ImagePostViewController: ShiftableViewController {
     private var originalImage: UIImage? {
         didSet {
             
-            DispatchQueue.main.async {
-                self.updateImageView()
-            }
+            updateImageView()
+            
         }
     }
     
@@ -168,9 +167,8 @@ class ImagePostViewController: ShiftableViewController {
             default:
                 vignetteSliderStack.isHidden = true
         }
-        DispatchQueue.main.async {
-            self.updateImageView()
-        }
+        updateImageView()
+        
         
     }
     //MARK: - Filter Slider controls
@@ -190,9 +188,8 @@ class ImagePostViewController: ShiftableViewController {
     @IBOutlet weak var intensitySlider: UISlider!
     
     @IBAction func sliderChanged(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.updateImageView()
-        }
+        
+        updateImageView()
     }
     
     private func updateImageView() {
