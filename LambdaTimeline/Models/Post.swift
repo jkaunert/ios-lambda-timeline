@@ -13,7 +13,7 @@ enum MediaType: String {
     case image
 }
 
-struct Post {
+class Post {
     
     init(title: String, mediaURL: URL, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date()) {
         self.mediaURL = mediaURL

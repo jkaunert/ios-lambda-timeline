@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseAuth
 
-struct Comment: FirebaseConvertible, Equatable {
+class Comment: FirebaseConvertible, Equatable {
     
     static private let textKey = "text"
     static private let author = "author"
@@ -40,5 +40,10 @@ struct Comment: FirebaseConvertible, Equatable {
         return [Comment.textKey: text,
                 Comment.author: author.dictionaryRepresentation,
                 Comment.timestampKey: timestamp.timeIntervalSince1970]
+    }
+    
+    static func ==(lhs: Comment, rhs: Comment) -> Bool {
+        return lhs.author == rhs.author &&
+            lhs.timestamp == rhs.timestamp
     }
 }
