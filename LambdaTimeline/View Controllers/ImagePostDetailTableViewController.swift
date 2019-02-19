@@ -67,7 +67,7 @@ class ImagePostDetailTableViewController: UITableViewController {
             self.presentAddTextCommentAlert()
         }
         let addVoiceCommentAction = UIAlertAction(title: "Add Voice Comment", style: .default) { (_) in
-            
+            self.performSegue(withIdentifier: "AudioRecorderModalVC", sender: self)
         }
         let chooseCommentTypeCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         chooseCommentTypeAlert.addAction(addTextCommentAction)
@@ -83,7 +83,6 @@ class ImagePostDetailTableViewController: UITableViewController {
      
     }
     
-    //A Comment
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (post?.comments.count ?? 0) - 1
