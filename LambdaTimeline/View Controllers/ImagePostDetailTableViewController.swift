@@ -12,13 +12,18 @@ class ImagePostDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViews()
+        DispatchQueue.main.async {
+            self.updateViews()
+        }
+        
     }
     
     func updateViews() {
         
         guard let imageData = imageData,
-            let image = UIImage(data: imageData) else { return }
+            let image = UIImage(data: imageData) else {
+                print("No Data!")
+                return }
         
         title = post?.title
         
@@ -93,7 +98,8 @@ class ImagePostDetailTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
         
         let comment = post?.comments[indexPath.row + 1]
-        
+        print(comment?.text)
+        print(comment?.author.displayName)
         cell.textLabel?.text = comment?.text
         cell.detailTextLabel?.text = comment?.author.displayName
         
