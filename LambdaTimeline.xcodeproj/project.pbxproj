@@ -32,6 +32,9 @@
 		ABF50866221B485E00EA38FC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABF50865221B485E00EA38FC /* GoogleService-Info.plist */; };
 		ABF5088E221CC8B000EA38FC /* VoiceCommentRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5088D221CC8B000EA38FC /* VoiceCommentRecorderViewController.swift */; };
 		ABF50890221CC93A00EA38FC /* VoiceCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5088F221CC93A00EA38FC /* VoiceCommentTableViewCell.swift */; };
+		ABF50892221D384600EA38FC /* MediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF50891221D384600EA38FC /* MediaPlayer.swift */; };
+		ABF50894221D385C00EA38FC /* MediaRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF50893221D385C00EA38FC /* MediaRecorder.swift */; };
+		ABF50897221D3F2D00EA38FC /* dramatic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ABF50896221D3F2C00EA38FC /* dramatic.mp3 */; };
 		E453457955DF907FCBD117F1 /* Pods_LambdaTimeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA39CACB677861CF84322FB5 /* Pods_LambdaTimeline.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +69,9 @@
 		ABF50865221B485E00EA38FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABF5088D221CC8B000EA38FC /* VoiceCommentRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCommentRecorderViewController.swift; sourceTree = "<group>"; };
 		ABF5088F221CC93A00EA38FC /* VoiceCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCommentTableViewCell.swift; sourceTree = "<group>"; };
+		ABF50891221D384600EA38FC /* MediaPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayer.swift; sourceTree = "<group>"; };
+		ABF50893221D385C00EA38FC /* MediaRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRecorder.swift; sourceTree = "<group>"; };
+		ABF50896221D3F2C00EA38FC /* dramatic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dramatic.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,7 @@
 		4646377A216FDE4B00E7FF73 /* LambdaTimeline */ = {
 			isa = PBXGroup;
 			children = (
+				ABF50896221D3F2C00EA38FC /* dramatic.mp3 */,
 				ABF50865221B485E00EA38FC /* GoogleService-Info.plist */,
 				46CFE7042171572900E7FF73 /* Views */,
 				46A0366B21700F6100E7FF73 /* View Controllers */,
@@ -198,6 +205,7 @@
 				464637982170048900E7FF73 /* FirebaseConvertible.swift */,
 				46CFE6FC217154F500E7FF73 /* Networking.swift */,
 				46CFE6F82170862C00E7FF73 /* ShiftableViewController.swift */,
+				ABF50895221D386500EA38FC /* Audio+Video */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -218,6 +226,15 @@
 				AA39CACB677861CF84322FB5 /* Pods_LambdaTimeline.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ABF50895221D386500EA38FC /* Audio+Video */ = {
+			isa = PBXGroup;
+			children = (
+				ABF50891221D384600EA38FC /* MediaPlayer.swift */,
+				ABF50893221D385C00EA38FC /* MediaRecorder.swift */,
+			);
+			path = "Audio+Video";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +301,7 @@
 				46463786216FDE4C00E7FF73 /* LaunchScreen.storyboard in Resources */,
 				46463783216FDE4C00E7FF73 /* Assets.xcassets in Resources */,
 				ABF50866221B485E00EA38FC /* GoogleService-Info.plist in Resources */,
+				ABF50897221D3F2D00EA38FC /* dramatic.mp3 in Resources */,
 				46463781216FDE4B00E7FF73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,10 +411,12 @@
 				46D571F82173FC2700E7FF73 /* ImagePostDetailTableViewController.swift in Sources */,
 				46CFE7032171572600E7FF73 /* ImagePostCollectionViewCell.swift in Sources */,
 				ABF5088E221CC8B000EA38FC /* VoiceCommentRecorderViewController.swift in Sources */,
+				ABF50894221D385C00EA38FC /* MediaRecorder.swift in Sources */,
 				4646379C2170091A00E7FF73 /* PostController.swift in Sources */,
 				464637992170048900E7FF73 /* FirebaseConvertible.swift in Sources */,
 				46A0366A21700F5100E7FF73 /* PostsCollectionViewController.swift in Sources */,
 				46D571F52173CF3E00E7FF73 /* UIImage+Ratio.swift in Sources */,
+				ABF50892221D384600EA38FC /* MediaPlayer.swift in Sources */,
 				46463792216FFDD900E7FF73 /* Comment.swift in Sources */,
 				46CFE6F721707FA600E7FF73 /* UIViewController+InformationalAlert.swift in Sources */,
 			);

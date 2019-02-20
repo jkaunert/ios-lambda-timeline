@@ -346,6 +346,23 @@
                                     <constraint firstAttribute="width" constant="359" id="0RN-Ia-LNG"/>
                                 </constraints>
                             </stackView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ihC-Mb-sTn">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem systemItem="cancel" id="tNM-5e-7Ci">
+                                        <connections>
+                                            <action selector="cancelAddAudioComment:" destination="9FH-85-tN8" id="Z8e-Qo-yEs"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="flexibleSpace" id="7qY-dU-ao4"/>
+                                    <barButtonItem title="Post" id="TJQ-tN-rGx">
+                                        <connections>
+                                            <action selector="postAudioComment:" destination="9FH-85-tN8" id="m0P-d6-gyB"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -357,8 +374,11 @@
                         <viewLayoutGuide key="safeArea" id="nS2-Zb-8kf"/>
                     </view>
                     <connections>
+                        <outlet property="elapsedTimeLabel" destination="gAQ-27-mYL" id="MKk-lW-pkA"/>
                         <outlet property="recorderPlayPauseButton" destination="8Jy-Qu-tYb" id="9lg-OH-roH"/>
                         <outlet property="recorderRecordButton" destination="i9c-E9-uDr" id="I6e-0b-Wut"/>
+                        <outlet property="remainingTimeLabel" destination="IVE-UE-zEl" id="j6g-f9-ZHy"/>
+                        <outlet property="timeSlider" destination="Xay-Mh-Ab1" id="Rop-3T-HU1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qWi-m8-MUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
