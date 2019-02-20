@@ -54,6 +54,13 @@ class Recorder: NSObject {
         notifyDelegate()
     }
     
+    func createCommentFromAudio() {
+        guard let imageData = currentFile else {
+            NSLog("Audio File Error")
+            return
+        }
+    }
+    
     private func notifyDelegate() {
         delegate?.recorderDidChangeState(self)
     }

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Foundation
+import AVFoundation
 
 class VoiceCommentRecorderViewController: UIViewController, PlayerDelegate, RecorderDelegate {
     func playerDidChangeState(_ player: Player) {
@@ -79,10 +81,14 @@ class VoiceCommentRecorderViewController: UIViewController, PlayerDelegate, Reco
     }
     
     @IBAction func cancelAddAudioComment(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+
         
     }
     
-    @IBAction func postAudioComment(_ sender: Any) {
+    @IBAction func createAudioComment(_ sender: Any) {
         
     }
     

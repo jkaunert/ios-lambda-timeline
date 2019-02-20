@@ -358,7 +358,7 @@
                                     <barButtonItem systemItem="flexibleSpace" id="7qY-dU-ao4"/>
                                     <barButtonItem title="Post" id="TJQ-tN-rGx">
                                         <connections>
-                                            <action selector="postAudioComment:" destination="9FH-85-tN8" id="m0P-d6-gyB"/>
+                                            <action selector="createAudioComment:" destination="9FH-85-tN8" id="m0P-d6-gyB"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

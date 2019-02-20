@@ -11,6 +11,11 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
+enum CommentMediaType: String {
+    case text
+    case audio
+}
+
 class PostController {
     
     
@@ -47,17 +52,29 @@ class PostController {
         savePostToFirebase(post)
     }
     
-    func addAudioComment(audioURL: URL, to post: inout Post) {
-        
+    func addAudioComment(with audioData: Data, ofType mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
         guard let currentUser = Auth.auth().currentUser,
             let author = Author(user: currentUser) else { return }
         
-        let comment = Comment(text: nil, author: author, audioURL: audioURL)
-        post.comments.append(comment)
-        
-        savePostToFirebase(post)
+        store(mediaData: audioData, mediaType: mediaType) { (mediaURL) in
+            
+            guard let mediaURL = mediaURL else { completion(false); return }
+            
+            let audioComment = Comment(text: nil, author: author, audioURL: mediaURL)
+            post.comments.append(audioComment)
+            self.savePostToFirebase(post)
+            
+            self.postsRef.childByAutoId().setValue(audioComment.dictionaryRepresentation) { (error, ref) in
+                if let error = error {
+                    NSLog("Error posting audio comment: \(error)")
+                    completion(false)
+                }
+                
+                completion(true)
+            }
+        }
     }
-
+ 
     func observePosts(completion: @escaping (Error?) -> Void) {
         
         postsRef.observe(.value, with: { (snapshot) in
