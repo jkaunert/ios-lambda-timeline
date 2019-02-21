@@ -49,7 +49,7 @@ class ImagePostDetailTableViewController: UITableViewController {
             
             guard let commentText = commentTextField?.text else { return }
             
-            self.postController.addTextComment(with: commentText, to: &self.post!)
+            self.postController.addTextComment(with: commentText, to: self.post!)
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -74,6 +74,7 @@ class ImagePostDetailTableViewController: UITableViewController {
         let addVoiceCommentAction = UIAlertAction(title: "Add Voice Comment", style: .default) { (_) in
             // custom segue for recorder
             self.performSegue(withIdentifier: "AudioRecorderModalVC", sender: self)
+            
         }
         let chooseCommentTypeCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         chooseCommentTypeAlert.addAction(addTextCommentAction)
@@ -86,7 +87,7 @@ class ImagePostDetailTableViewController: UITableViewController {
     @IBAction func createComment(_ sender: Any) {
         
         presentChooseCommentTypeAlert()
-     
+        
     }
     
     
@@ -98,12 +99,22 @@ class ImagePostDetailTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
         
         let comment = post?.comments[indexPath.row + 1]
-        print(comment?.text)
-        print(comment?.author.displayName)
         cell.textLabel?.text = comment?.text
         cell.detailTextLabel?.text = comment?.author.displayName
         
         return cell
+    }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AudioRecorderModalVC" {
+            let destinationVC = segue.destination as? VoiceCommentRecorderViewController
+            destinationVC?.postController = postController
+            destinationVC?.post = post
+            
+        }
     }
     
     var post: Post!

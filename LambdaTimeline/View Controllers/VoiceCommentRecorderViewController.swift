@@ -89,7 +89,21 @@ class VoiceCommentRecorderViewController: UIViewController, PlayerDelegate, Reco
     }
     
     @IBAction func createAudioComment(_ sender: Any) {
+        guard let audioData = try? AVAudioFile(forReading: recorder.currentFile!) else {
+            NSLog("error fetching data")
+            return
+        }
         
+        postController.addAudioComment(with: audioData, ofType: .audio, to: post) { (success) in
+            guard success else {
+                NSLog("Unable to create post.")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     private lazy var timeFormatter: DateComponentsFormatter = {
@@ -99,5 +113,9 @@ class VoiceCommentRecorderViewController: UIViewController, PlayerDelegate, Reco
         f.allowedUnits = [.minute, .second]
         return f
     }()
+    
+    var postController: PostController!
+    var post: Post!
+    
     
 }

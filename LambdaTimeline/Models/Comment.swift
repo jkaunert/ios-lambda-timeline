@@ -22,7 +22,7 @@ class Comment: FirebaseConvertible, Equatable {
     let timestamp: Date
     let audioURL: URL?
     
-    init(text: String? = "HI THERE!" , author: Author, timestamp: Date = Date(), audioURL: URL?) {
+    init(text: String?, author: Author, timestamp: Date = Date(), audioURL: URL?) {
         self.text = text
         self.author = author
         self.timestamp = timestamp
@@ -30,11 +30,10 @@ class Comment: FirebaseConvertible, Equatable {
     }
     
     init?(dictionary: [String: Any]) {
-        guard let text = dictionary[Comment.textKey] as? String,
+        guard let text = dictionary[Comment.textKey] as? String?,
             let authorDictionary = dictionary[Comment.author] as? [String: Any],
             let author = Author(dictionary: authorDictionary),
             let timestampTimeInterval = dictionary[Comment.timestampKey] as? TimeInterval else { return nil }
-        
         self.text = text
         self.author = author
         self.timestamp = Date(timeIntervalSince1970: timestampTimeInterval)
@@ -42,10 +41,10 @@ class Comment: FirebaseConvertible, Equatable {
     }
     
     var dictionaryRepresentation: [String: Any] {
-        return [Comment.textKey: text,
+        return [Comment.audioKey: audioURL?.absoluteString,
+                Comment.textKey: text,
                 Comment.author: author.dictionaryRepresentation,
-                Comment.timestampKey: timestamp.timeIntervalSince1970,
-                Comment.audioKey: audioURL?.absoluteURL]
+                Comment.timestampKey: timestamp.timeIntervalSince1970]
         
     }
     

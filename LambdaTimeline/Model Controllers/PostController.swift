@@ -5,11 +5,12 @@
 //  Created by Spencer Curtis on 10/11/18.
 //  Copyright © 2018 Lambda School. All rights reserved.
 //
-
+import UIKit
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import AVFoundation
 
 enum CommentMediaType: String {
     case text
@@ -41,7 +42,7 @@ class PostController {
         }
     }
     
-    func addTextComment(with text: String, to post: inout Post) {
+    func addTextComment(with text: String, to post: Post) {
         
         guard let currentUser = Auth.auth().currentUser,
             let author = Author(user: currentUser) else { return }
@@ -52,28 +53,30 @@ class PostController {
         savePostToFirebase(post)
     }
     
-//    func addAudioComment(with audioData: Data, ofType mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
-//        guard let currentUser = Auth.auth().currentUser,
-//            let author = Author(user: currentUser) else { return }
-//        
-//        store(mediaData: audioData, mediaType: mediaType) { (mediaURL) in
-//            
-//            guard let mediaURL = mediaURL else { completion(false); return }
-//            
-//            let audioComment = Comment(text: nil, author: author, audioURL: mediaURL)
-//            post.comments.append(audioComment)
-//            self.savePostToFirebase(post)
-//            
-//            self.postsRef.childByAutoId().setValue(audioComment.dictionaryRepresentation) { (error, ref) in
-//                if let error = error {
-//                    NSLog("Error posting audio comment: \(error)")
-//                    completion(false)
-//                }
-//                
-//                completion(true)
-//            }
-//        }
-//    }
+    func addAudioComment(with audioData: AVAudioFile, ofType mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
+        guard let currentUser = Auth.auth().currentUser,
+            let author = Author(user: currentUser) else { return }
+            let datas = try! Data(contentsOf: audioData.url)
+        
+        store(mediaData: datas, mediaType: mediaType) { (mediaURL) in
+            
+           
+            guard let mediaURL = mediaURL else { completion(false); return }
+            
+            let audioComment = Comment(text: nil, author: author, audioURL: mediaURL)
+            post.comments.append(audioComment)
+            //self.savePostToFirebase(post)
+            
+            self.savePostToFirebase(post) { (error) in
+                if let error = error {
+                    NSLog("Error posting audio comment: \(error)")
+                    completion(false)
+                }
+                
+                completion(true)
+            }
+        }
+    }
  
     func observePosts(completion: @escaping (Error?) -> Void) {
         
