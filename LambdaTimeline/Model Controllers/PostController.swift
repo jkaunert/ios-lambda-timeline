@@ -56,9 +56,9 @@ class PostController {
     func addAudioComment(with audioData: AVAudioFile, ofType mediaType: MediaType, to post: Post, completion: @escaping (Bool) -> Void = { _ in }) {
         guard let currentUser = Auth.auth().currentUser,
             let author = Author(user: currentUser) else { return }
-            let datas = try! Data(contentsOf: audioData.url)
+            let songData = try! Data(contentsOf: audioData.url)
         
-        store(mediaData: datas, mediaType: mediaType) { (mediaURL) in
+        store(mediaData: songData, mediaType: mediaType) { (mediaURL) in
             
            
             guard let mediaURL = mediaURL else { completion(false); return }
@@ -110,42 +110,111 @@ class PostController {
         ref.setValue(post.dictionaryRepresentation)
     }
 
-    private func store(mediaData: Data, mediaType: MediaType, completion: @escaping (URL?) -> Void) {
+    private func store<T>(mediaData: T, mediaType: MediaType, completion: @escaping (URL?) -> Void) {
         
         let mediaID = UUID().uuidString
+        let mediaRef: StorageReference
+        let metadata = StorageMetadata()
         
-        let mediaRef = storageRef.child(mediaType.rawValue).child(mediaID)
-        
-        let uploadTask = mediaRef.putData(mediaData, metadata: nil) { (metadata, error) in
-            if let error = error {
-                NSLog("Error storing media data: \(error)")
-                completion(nil)
-                return
-            }
+        switch mediaType {
             
-            if metadata == nil {
-                NSLog("No metadata returned from upload task.")
-                completion(nil)
-                return
-            }
-            
-            mediaRef.downloadURL(completion: { (url, error) in
-                
+        case .image:
+             mediaRef = storageRef.child(mediaType.rawValue).child(mediaID)
+             let uploadTask = mediaRef.putData(mediaData as! Data, metadata: nil) { (metadata, error) in
                 if let error = error {
-                    NSLog("Error getting download url of media: \(error)")
-                }
-                
-                guard let url = url else {
-                    NSLog("Download url is nil. Unable to create a Media object")
-                    
+                    NSLog("Error storing media data: \(error)")
                     completion(nil)
                     return
                 }
-                completion(url)
-            })
+                
+                if metadata == nil {
+                    NSLog("No metadata returned from upload task.")
+                    completion(nil)
+                    return
+                }
+                
+                mediaRef.downloadURL(completion: { (url, error) in
+                    
+                    if let error = error {
+                        NSLog("Error getting download url of media: \(error)")
+                    }
+                    
+                    guard let url = url else {
+                        NSLog("Download url is nil. Unable to create a Media object")
+                        
+                        completion(nil)
+                        return
+                    }
+                    completion(url)
+                })
+            }
+            uploadTask.resume()
+        case .audio:
+            mediaRef = storageRef.child(mediaType.rawValue).child(mediaID)
+            metadata.contentType = "audio/wav"
+            
+            let uploadTask = mediaRef.putData(mediaData as! Data, metadata: metadata) { (metadata, error) in
+                if let error = error {
+                    NSLog("Error storing media data: \(error)")
+                    completion(nil)
+                    return
+                }
+                
+                if metadata == nil {
+                    NSLog("No metadata returned from upload task.")
+                    completion(nil)
+                    return
+                }
+                
+                mediaRef.downloadURL(completion: { (url, error) in
+                    
+                    if let error = error {
+                        NSLog("Error getting download url of media: \(error)")
+                    }
+                    
+                    guard let url = url else {
+                        NSLog("Download url is nil. Unable to create a Media object")
+                        
+                        completion(nil)
+                        return
+                    }
+                    completion(url)
+                })
+            }
+            uploadTask.resume()
         }
         
-        uploadTask.resume()
+        
+//        let uploadTask = mediaRef.putData(mediaData, metadata: nil) { (metadata, error) in
+//            if let error = error {
+//                NSLog("Error storing media data: \(error)")
+//                completion(nil)
+//                return
+//            }
+//
+//            if metadata == nil {
+//                NSLog("No metadata returned from upload task.")
+//                completion(nil)
+//                return
+//            }
+//
+//            mediaRef.downloadURL(completion: { (url, error) in
+//
+//                if let error = error {
+//                    NSLog("Error getting download url of media: \(error)")
+//                }
+//
+//                guard let url = url else {
+//                    NSLog("Download url is nil. Unable to create a Media object")
+//
+//                    completion(nil)
+//                    return
+//                }
+//                completion(url)
+//            })
+//        }
+        
+        //uploadTask.resume()
     }
     
     var posts: [Post] = []

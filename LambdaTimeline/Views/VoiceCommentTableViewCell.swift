@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 class VoiceCommentTableViewCell: UITableViewCell, PlayerDelegate {
 
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -32,17 +34,29 @@ class VoiceCommentTableViewCell: UITableViewCell, PlayerDelegate {
         }
     }
     
-    private let player = Player()
+    let player = Player()
     
+
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     
+    var aVPlayer: AVPlayer!
+    
     
     @IBAction func playPauseTapped(_ sender: Any) {
-        player.playPause(song: post?.mediaURL)
+        let audiourl = URL(string: "https://firebasestorage.googleapis.com/v0/b/my-awesome-project-id-5bed7.appspot.com/o/audio%2F5DCF6009-39EA-49A8-B6EC-A1AD87CFC8B5?alt=media&token=e34889b1-45e9-485c-ae20-23e5e89d0e18")
+        let playerItem: AVPlayerItem = AVPlayerItem(url: audiourl!)
+        aVPlayer = AVPlayer(playerItem: playerItem)
+        aVPlayer.play()
+        
+//        player.playPause(song: URL(string: "https://firebasestorage.googleapis.com/v0/b/my-awesome-project-id-5bed7.appspot.com/o/audio%2F5DCF6009-39EA-49A8-B6EC-A1AD87CFC8B5?alt=media&token=e34889b1-45e9-485c-ae20-23e5e89d0e18"))
+//        let isPlaying = player.isPlaying
+//        playPauseButton.setTitle(isPlaying ? "⏸" : "▶️", for: [])
     }
     func playerDidChangeState(_ player: Player) {
         updateViews()
     }
     
+    var audioStreamURL: URL?
+
 }

@@ -13,7 +13,12 @@ class ImagePostDetailTableViewController: UITableViewController, PlayerDelegate 
     func playerDidChangeState(_ player: Player) {
         updateViews()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.updateViews()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +110,7 @@ class ImagePostDetailTableViewController: UITableViewController, PlayerDelegate 
         if comment?.text != nil {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
             // Text Comment Cell
-            //let comment = post?.comments[indexPath.row + 1]
+            
             cell.textLabel?.text = comment?.text
             cell.detailTextLabel?.text = comment?.author.displayName
             return cell
@@ -113,6 +118,7 @@ class ImagePostDetailTableViewController: UITableViewController, PlayerDelegate 
             // Audio Comment Cell
             let cell: VoiceCommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: "VoiceCommentCell", for: indexPath) as! VoiceCommentTableViewCell
             
+            cell.audioStreamURL = comment?.audioURL
             cell.userNameLabel?.text = comment?.author.displayName
             cell.playPauseButton.setTitle(player.isPlaying ? "⏸" : "▶️", for: [])
             return cell

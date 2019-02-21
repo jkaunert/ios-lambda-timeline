@@ -99,10 +99,10 @@ class VoiceCommentRecorderViewController: UIViewController, PlayerDelegate, Reco
                 NSLog("Unable to create post.")
                 return
             }
-            
-            DispatchQueue.main.async {
-                self.dismiss(animated: true, completion: nil)
-            }
+        }
+        
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

@@ -48,7 +48,7 @@ class Player: NSObject, AVAudioPlayerDelegate {
         
         if audioPlayer == nil || audioPlayer?.url != file {
             //make audio player
-            audioPlayer = try! AVAudioPlayer(contentsOf: file)
+            audioPlayer = try? AVAudioPlayer(contentsOf: file)
             audioPlayer?.delegate = self
         }
         audioPlayer?.play()
