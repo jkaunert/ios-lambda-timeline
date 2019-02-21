@@ -8,7 +8,12 @@
 
 import UIKit
 
-class ImagePostDetailTableViewController: UITableViewController {
+class ImagePostDetailTableViewController: UITableViewController, PlayerDelegate {
+    
+    func playerDidChangeState(_ player: Player) {
+        updateViews()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,13 +101,23 @@ class ImagePostDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
-        
         let comment = post?.comments[indexPath.row + 1]
-        cell.textLabel?.text = comment?.text
-        cell.detailTextLabel?.text = comment?.author.displayName
-        
-        return cell
+        if comment?.text != nil {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
+            // Text Comment Cell
+            //let comment = post?.comments[indexPath.row + 1]
+            cell.textLabel?.text = comment?.text
+            cell.detailTextLabel?.text = comment?.author.displayName
+            return cell
+        }else {
+            // Audio Comment Cell
+            let cell: VoiceCommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: "VoiceCommentCell", for: indexPath) as! VoiceCommentTableViewCell
+            
+            cell.userNameLabel?.text = comment?.author.displayName
+            cell.playPauseButton.setTitle(player.isPlaying ? "⏸" : "▶️", for: [])
+            return cell
+        }
+
     }
     
     // MARK: - Navigation
@@ -120,6 +135,7 @@ class ImagePostDetailTableViewController: UITableViewController {
     var post: Post!
     var postController: PostController!
     var imageData: Data?
+    let player = Player()
     
     
     

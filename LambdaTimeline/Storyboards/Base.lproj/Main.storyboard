@@ -534,7 +534,7 @@
                                                     </constraints>
                                                     <state key="normal" title="⏯"/>
                                                     <connections>
-                                                        <action selector="playPauseTapped:" destination="ToU-8W-hAT" eventType="touchUpInside" id="OWP-K2-bnE"/>
+                                                        <action selector="playPauseTapped:" destination="ToU-8W-hAT" eventType="touchUpInside" id="D1s-Ij-ncq"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iM6-ud-Sbc">
@@ -554,8 +554,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="playPauseButton" destination="1uX-Sb-4kJ" id="LAe-pi-kqO"/>
-                                    <outlet property="userNameLabel" destination="iM6-ud-Sbc" id="uOR-kf-t6I"/>
+                                    <outlet property="playPauseButton" destination="1uX-Sb-4kJ" id="tqL-Gs-isQ"/>
+                                    <outlet property="userNameLabel" destination="iM6-ud-Sbc" id="mG8-YL-0yR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

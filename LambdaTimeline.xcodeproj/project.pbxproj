@@ -36,6 +36,7 @@
 		ABF50894221D385C00EA38FC /* MediaRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF50893221D385C00EA38FC /* MediaRecorder.swift */; };
 		ABF50897221D3F2D00EA38FC /* dramatic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ABF50896221D3F2C00EA38FC /* dramatic.mp3 */; };
 		ABF50899221D409C00EA38FC /* FetchAudioOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF50898221D409C00EA38FC /* FetchAudioOperation.swift */; };
+		ABF508BD221E2BE200EA38FC /* AVAudioPCMBuffer+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF508BC221E2BE200EA38FC /* AVAudioPCMBuffer+Data.swift */; };
 		E453457955DF907FCBD117F1 /* Pods_LambdaTimeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA39CACB677861CF84322FB5 /* Pods_LambdaTimeline.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		ABF50893221D385C00EA38FC /* MediaRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRecorder.swift; sourceTree = "<group>"; };
 		ABF50896221D3F2C00EA38FC /* dramatic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dramatic.mp3; sourceTree = "<group>"; };
 		ABF50898221D409C00EA38FC /* FetchAudioOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAudioOperation.swift; sourceTree = "<group>"; };
+		ABF508BC221E2BE200EA38FC /* AVAudioPCMBuffer+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioPCMBuffer+Data.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				46CFE6F22170757F00E7FF73 /* User+DictionaryRepresentation.swift */,
+				ABF508BC221E2BE200EA38FC /* AVAudioPCMBuffer+Data.swift */,
 				46D571F42173CF3E00E7FF73 /* UIImage+Ratio.swift */,
 				46CFE6F621707FA600E7FF73 /* UIViewController+InformationalAlert.swift */,
 			);
@@ -412,6 +415,7 @@
 				46CFE6F32170757F00E7FF73 /* User+DictionaryRepresentation.swift in Sources */,
 				46D571F32172D43B00E7FF73 /* Cache.swift in Sources */,
 				46CFE7012171559500E7FF73 /* FetchMediaOperation.swift in Sources */,
+				ABF508BD221E2BE200EA38FC /* AVAudioPCMBuffer+Data.swift in Sources */,
 				46D571F82173FC2700E7FF73 /* ImagePostDetailTableViewController.swift in Sources */,
 				46CFE7032171572600E7FF73 /* ImagePostCollectionViewCell.swift in Sources */,
 				ABF5088E221CC8B000EA38FC /* VoiceCommentRecorderViewController.swift in Sources */,

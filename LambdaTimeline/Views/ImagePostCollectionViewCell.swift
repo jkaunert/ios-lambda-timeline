@@ -9,7 +9,7 @@
 import UIKit
 
 class ImagePostCollectionViewCell: UICollectionViewCell {
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         setupLabelBackgroundView()

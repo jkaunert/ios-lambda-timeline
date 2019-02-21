@@ -65,7 +65,6 @@ class PostController {
             
             let audioComment = Comment(text: nil, author: author, audioURL: mediaURL)
             post.comments.append(audioComment)
-            //self.savePostToFirebase(post)
             
             self.savePostToFirebase(post) { (error) in
                 if let error = error {
