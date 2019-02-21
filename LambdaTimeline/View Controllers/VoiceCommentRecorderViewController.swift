@@ -12,11 +12,15 @@ import AVFoundation
 
 class VoiceCommentRecorderViewController: UIViewController, PlayerDelegate, RecorderDelegate {
     func playerDidChangeState(_ player: Player) {
-        updateViews()
+        DispatchQueue.main.async {
+            self.updateViews()
+        }
     }
     
     func recorderDidChangeState(_ recorder: Recorder) {
-        updateViews()
+        DispatchQueue.main.async {
+            self.updateViews()
+        }
     }
     
     private func updateViews() {
@@ -50,6 +54,11 @@ class VoiceCommentRecorderViewController: UIViewController, PlayerDelegate, Reco
         let font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .regular)
         elapsedTimeLabel.font = font
         remainingTimeLabel.font = font
+        
+        DispatchQueue.main.async {
+            self.updateViews()
+        }
+        
     }
     
 
@@ -116,6 +125,7 @@ class VoiceCommentRecorderViewController: UIViewController, PlayerDelegate, Reco
     
     var postController: PostController!
     var post: Post!
+    var comment: Comment!
     
     
 }

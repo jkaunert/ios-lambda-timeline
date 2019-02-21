@@ -17,6 +17,26 @@ enum MediaType: String {
 
 class Post {
     
+    var mediaURL: URL
+    let mediaType: MediaType
+    let author: Author
+    let timestamp: Date
+    var comments: [Comment]
+    var id: String?
+    var ratio: CGFloat?
+    
+    var title: String? {
+        return comments.first?.text ?? "No Title."
+    }
+    
+    static private let mediaKey = "media"
+    static private let ratioKey = "ratio"
+    static private let mediaTypeKey = "mediaType"
+    static private let authorKey = "author"
+    static private let commentsKey = "comments"
+    static private let timestampKey = "timestamp"
+    static private let idKey = "id"
+    
     init(title: String?, mediaURL: URL, ratio: CGFloat? = nil, author: Author, timestamp: Date = Date()) {
         self.mediaURL = mediaURL
         self.ratio = ratio
@@ -60,23 +80,5 @@ class Post {
         return dict
     }
     
-    var mediaURL: URL
-    let mediaType: MediaType
-    let author: Author
-    let timestamp: Date
-    var comments: [Comment]
-    var id: String?
-    var ratio: CGFloat?
-    
-    var title: String? {
-        return comments.first?.text
-    }
-    
-    static private let mediaKey = "media"
-    static private let ratioKey = "ratio"
-    static private let mediaTypeKey = "mediaType"
-    static private let authorKey = "author"
-    static private let commentsKey = "comments"
-    static private let timestampKey = "timestamp"
-    static private let idKey = "id"
+   
 }

@@ -178,6 +178,7 @@ class PostController {
                         completion(nil)
                         return
                     }
+                    print(url)
                     completion(url)
                 })
             }

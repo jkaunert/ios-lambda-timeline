@@ -9,9 +9,9 @@
 import UIKit
 import AVFoundation
 
-class VoiceCommentTableViewCell: UITableViewCell, PlayerDelegate {
-
+class VoiceCommentTableViewCell: UITableViewCell, PlayerDelegate, UITableViewDelegate {
     
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -30,7 +30,9 @@ class VoiceCommentTableViewCell: UITableViewCell, PlayerDelegate {
     
     var post: Post? {
         didSet {
-            updateViews()
+            DispatchQueue.main.async {
+                self.updateViews()
+            }
         }
     }
     
@@ -41,22 +43,36 @@ class VoiceCommentTableViewCell: UITableViewCell, PlayerDelegate {
     @IBOutlet weak var userNameLabel: UILabel!
     
     var aVPlayer: AVPlayer!
-    
+    var currentTime: CMTime = CMTime.zero
+
     
     @IBAction func playPauseTapped(_ sender: Any) {
-        let audiourl = URL(string: "https://firebasestorage.googleapis.com/v0/b/my-awesome-project-id-5bed7.appspot.com/o/audio%2F5DCF6009-39EA-49A8-B6EC-A1AD87CFC8B5?alt=media&token=e34889b1-45e9-485c-ae20-23e5e89d0e18")
+        
+        let audiourl = audioStreamURL
         let playerItem: AVPlayerItem = AVPlayerItem(url: audiourl!)
         aVPlayer = AVPlayer(playerItem: playerItem)
-        aVPlayer.play()
-        
-//        player.playPause(song: URL(string: "https://firebasestorage.googleapis.com/v0/b/my-awesome-project-id-5bed7.appspot.com/o/audio%2F5DCF6009-39EA-49A8-B6EC-A1AD87CFC8B5?alt=media&token=e34889b1-45e9-485c-ae20-23e5e89d0e18"))
-//        let isPlaying = player.isPlaying
-//        playPauseButton.setTitle(isPlaying ? "⏸" : "▶️", for: [])
+        if playPauseButton.title(for: []) == "▶️" {
+            
+            aVPlayer.seek(to: currentTime)
+            print(currentTime)
+            aVPlayer.play()
+            
+            playPauseButton.setTitle("⏸", for: [])
+        }else if playPauseButton.title(for: []) == "⏸" {
+            aVPlayer.pause()
+            currentTime = aVPlayer.currentTime()
+            playPauseButton.setTitle("▶️", for: [])
+        }
+  
     }
     func playerDidChangeState(_ player: Player) {
-        updateViews()
+        DispatchQueue.main.async {
+            self.updateViews()
+        }
     }
     
-    var audioStreamURL: URL?
+    var audioStreamURL: URL!
+    var comment: Comment!
+    
 
 }

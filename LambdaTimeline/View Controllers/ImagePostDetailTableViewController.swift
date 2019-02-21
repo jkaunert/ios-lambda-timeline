@@ -15,6 +15,8 @@ class ImagePostDetailTableViewController: UITableViewController, PlayerDelegate 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.delegate = self
+        tableView.dataSource = self
         DispatchQueue.main.async {
             self.updateViews()
         }
@@ -107,10 +109,11 @@ class ImagePostDetailTableViewController: UITableViewController, PlayerDelegate 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let comment = post?.comments[indexPath.row + 1]
+    
         if comment?.text != nil {
+            print(comment)
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
             // Text Comment Cell
-            
             cell.textLabel?.text = comment?.text
             cell.detailTextLabel?.text = comment?.author.displayName
             return cell
@@ -118,12 +121,15 @@ class ImagePostDetailTableViewController: UITableViewController, PlayerDelegate 
             // Audio Comment Cell
             let cell: VoiceCommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: "VoiceCommentCell", for: indexPath) as! VoiceCommentTableViewCell
             
+            print(comment)
+            cell.post = post
+            cell.comment = comment
             cell.audioStreamURL = comment?.audioURL
             cell.userNameLabel?.text = comment?.author.displayName
             cell.playPauseButton.setTitle(player.isPlaying ? "⏸" : "▶️", for: [])
             return cell
         }
-
+        print(comment?.audioURL!)
     }
     
     // MARK: - Navigation
@@ -141,6 +147,7 @@ class ImagePostDetailTableViewController: UITableViewController, PlayerDelegate 
     var post: Post!
     var postController: PostController!
     var imageData: Data?
+    var comment: Comment!
     let player = Player()
     
     
