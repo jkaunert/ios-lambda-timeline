@@ -29,7 +29,7 @@ class PostController {
             
             guard let mediaURL = mediaURL else { completion(false); return }
             
-            let imagePost = Post(title: title, mediaURL: mediaURL, ratio: ratio, author: author)
+            let imagePost = Post(title: title, mediaURL: mediaURL, mediaType: mediaType, ratio: ratio, author: author)
             
             self.postsRef.childByAutoId().setValue(imagePost.dictionaryRepresentation) { (error, ref) in
                 if let error = error {
@@ -183,39 +183,41 @@ class PostController {
                 })
             }
             uploadTask.resume()
+        case .video:
+            mediaRef = storageRef.child(mediaType.rawValue).child(mediaID)
+            metadata.contentType = "video/mov"
+            
+            let uploadTask = mediaRef.putData(mediaData as! Data, metadata: metadata) { (metadata, error) in
+                if let error = error {
+                    NSLog("Error storing media data: \(error)")
+                    completion(nil)
+                    return
+                }
+                
+                if metadata == nil {
+                    NSLog("No metadata returned from upload task.")
+                    completion(nil)
+                    return
+                }
+                
+                mediaRef.downloadURL(completion: { (url, error) in
+                    
+                    if let error = error {
+                        NSLog("Error getting download url of media: \(error)")
+                    }
+                    
+                    guard let url = url else {
+                        NSLog("Download url is nil. Unable to create a Media object")
+                        
+                        completion(nil)
+                        return
+                    }
+                    print(url)
+                    completion(url)
+                })
+            }
+            uploadTask.resume()
         }
-        
-        
-//        let uploadTask = mediaRef.putData(mediaData, metadata: nil) { (metadata, error) in
-//            if let error = error {
-//                NSLog("Error storing media data: \(error)")
-//                completion(nil)
-//                return
-//            }
-//
-//            if metadata == nil {
-//                NSLog("No metadata returned from upload task.")
-//                completion(nil)
-//                return
-//            }
-//
-//            mediaRef.downloadURL(completion: { (url, error) in
-//
-//                if let error = error {
-//                    NSLog("Error getting download url of media: \(error)")
-//                }
-//
-//                guard let url = url else {
-//                    NSLog("Download url is nil. Unable to create a Media object")
-//
-//                    completion(nil)
-//                    return
-//                }
-//                completion(url)
-//            })
-//        }
-        
-        //uploadTask.resume()
     }
     
     var posts: [Post] = []

@@ -29,10 +29,14 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         let imagePostAction = UIAlertAction(title: "Image", style: .default) { (_) in
             self.performSegue(withIdentifier: "AddImagePost", sender: nil)
         }
+        let videoPostAction = UIAlertAction(title: "Video", style: .default) { (_) in
+            self.performSegue(withIdentifier: "AddVideoPost", sender: nil)
+        }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alert.addAction(imagePostAction)
+        alert.addAction(videoPostAction)
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
@@ -45,6 +49,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let post = postController.posts[indexPath.row]
         
         switch post.mediaType {
@@ -60,12 +65,18 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         case .audio:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePostCell", for: indexPath) as? ImagePostCollectionViewCell else { return UICollectionViewCell() }
             
-            cell.post = post
-            
-            loadImage(for: cell, forItemAt: indexPath)
+//            cell.post = post
+//
+//            loadImage(for: cell, forItemAt: indexPath)
             
             return cell
         
+        case .video:
+            //FIXME: -
+             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPostCell", for: indexPath) as? VideoPostCollectionViewCell else { return UICollectionViewCell() }
+            print("We dont make video posts but we might someday.")
+            
+            return cell
         }
     }
     
@@ -86,6 +97,10 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             guard let ratio = post.ratio else { return size }
             
             size.height = size.width * ratio
+        case .video:
+            guard let ratio = post.ratio else { return size }
+            
+            size.height = size.width * ratio
         }
         
         return size
@@ -99,6 +114,11 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             cell.imageView.image != nil {
             self.performSegue(withIdentifier: "ViewImagePost", sender: nil)
         }
+        if let cell = cell as? VideoPostCollectionViewCell,
+            cell.videoView != nil {
+            self.performSegue(withIdentifier: "ViewVideoPost", sender: nil)
+        }
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
@@ -162,9 +182,23 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             let destinationVC = segue.destination as? ImagePostViewController
             destinationVC?.postController = postController
             
-        } else if segue.identifier == "ViewImagePost" {
+        } else if segue.identifier == "AddVideoPost" {
+            let destinationVC = segue.destination as? VideoPostViewController
+            destinationVC?.postController = postController
+            
+        }else if segue.identifier == "ViewImagePost" {
             
             let destinationVC = segue.destination as? ImagePostDetailTableViewController
+            
+            guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
+                let postID = postController.posts[indexPath.row].id else { return }
+            
+            destinationVC?.postController = postController
+            destinationVC?.post = postController.posts[indexPath.row]
+            destinationVC?.imageData = cache.value(for: postID)
+        } else if segue.identifier == "ViewVideoPost" {
+            //FIXME: -
+            let destinationVC = segue.destination as? VideoPostDetailTableViewController
             
             guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
                 let postID = postController.posts[indexPath.row].id else { return }
