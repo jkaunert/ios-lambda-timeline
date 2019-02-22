@@ -101,6 +101,19 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         
     }
     
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ReviewVideoPost" {
+            let destinationVC = segue.destination as? VideoPostViewController
+            destinationVC?.recordingURL = recordingURL
+            destinationVC?.postController = postController
+            destinationVC?.post = post
+        }
+    }
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "ReviewVideoPost", sender: self)
+    }
+    
     // MARK: - Private methods
     
     private func bestCamera() -> AVCaptureDevice {
@@ -133,7 +146,11 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     //MARK: - Properties
     
+    @IBOutlet weak var doneButton: UIBarButtonItem!
+    
     var recordingURL: URL!
+    var postController: PostController!
+    var post: Post?
     
     
 }

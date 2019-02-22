@@ -18,7 +18,7 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        videoView.image = nil
+        imageView.image = nil
         titleLabel.text = ""
         authorLabel.text = ""
     }
@@ -38,7 +38,7 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
     }
     
     func setImage(_ image: UIImage?) {
-        videoView.image = image
+        imageView.image = image
     }
     
     var post: Post? {
@@ -47,7 +47,7 @@ class VideoPostCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    @IBOutlet weak var videoView: VideoView!
+    @IBOutlet weak var imageView: VideoView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var labelBackgroundView: UIView!

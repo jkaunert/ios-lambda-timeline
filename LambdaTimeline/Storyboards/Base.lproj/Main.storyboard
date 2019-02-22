@@ -136,10 +136,9 @@
                                 <viewLayoutGuide key="safeArea" id="xYq-P0-OqO"/>
                                 <connections>
                                     <outlet property="authorLabel" destination="HZj-oq-OnT" id="Bjq-fi-coP"/>
-                                    <outlet property="imageView" destination="4zP-yu-IGo" id="DFG-0g-JoJ"/>
+                                    <outlet property="imageView" destination="4zP-yu-IGo" id="z9H-Vz-hSv"/>
                                     <outlet property="labelBackgroundView" destination="F7q-dc-bBN" id="mDS-mW-0HV"/>
                                     <outlet property="titleLabel" destination="D0Y-D6-cxe" id="26V-YS-GB1"/>
-                                    <outlet property="videoView" destination="4zP-yu-IGo" id="z9H-Vz-hSv"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -822,12 +821,14 @@
                     <navigationItem key="navigationItem" title="Title" id="IXe-8Y-mRx">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="iWH-97-mkD">
                             <connections>
-                                <segue destination="Smk-pV-9g7" kind="show" id="ltF-9F-Mby"/>
+                                <action selector="doneButtonTapped:" destination="4Z8-Eg-JN3" id="Ykd-w1-LTr"/>
+                                <segue destination="Smk-pV-9g7" kind="show" identifier="ReviewVideoPost" id="ltF-9F-Mby"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="cameraView" destination="G2T-im-RJz" id="1V8-OG-kVl"/>
+                        <outlet property="doneButton" destination="iWH-97-mkD" id="pBp-yR-vqX"/>
                         <outlet property="recordButton" destination="hTJ-lM-oNP" id="dvw-Mc-qfC"/>
                     </connections>
                 </viewController>
@@ -843,70 +844,71 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="qBz-yA-fiN">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ucA-Wy-uRz">
+                                <rect key="frame" x="0.0" y="50" width="375" height="567"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ucA-Wy-uRz">
+                                    <view clipsSubviews="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TY4-CW-qbX">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TY4-CW-qbX">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ue9-21-x7a" userLabel="VideoView" customClass="VideoView" customModule="LambdaTimeline" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ue9-21-x7a" userLabel="VideoView" customClass="VideoView" customModule="LambdaTimeline" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="567" id="B4c-We-Ryb"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="ue9-21-x7a" secondAttribute="trailing" id="BF6-Kh-KFf"/>
-                                                    <constraint firstItem="ue9-21-x7a" firstAttribute="leading" secondItem="TY4-CW-qbX" secondAttribute="leading" id="Rca-Gx-9FF"/>
-                                                    <constraint firstItem="ue9-21-x7a" firstAttribute="top" secondItem="TY4-CW-qbX" secondAttribute="top" id="mlK-Kd-k8e"/>
+                                                    <constraint firstAttribute="height" constant="567" id="B4c-We-Ryb"/>
                                                 </constraints>
-                                            </view>
+                                            </imageView>
                                         </subviews>
-                                    </stackView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Give your post a title:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FsI-co-710">
-                                        <rect key="frame" x="0.0" y="565" width="375" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                    </textField>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="ue9-21-x7a" firstAttribute="centerX" secondItem="TY4-CW-qbX" secondAttribute="centerX" id="6EG-bH-cb2"/>
+                                            <constraint firstAttribute="trailing" secondItem="ue9-21-x7a" secondAttribute="trailing" id="BF6-Kh-KFf"/>
+                                            <constraint firstItem="ue9-21-x7a" firstAttribute="top" secondItem="TY4-CW-qbX" secondAttribute="top" id="OB8-Dj-Xtz"/>
+                                            <constraint firstItem="ue9-21-x7a" firstAttribute="leading" secondItem="TY4-CW-qbX" secondAttribute="leading" id="Rca-Gx-9FF"/>
+                                            <constraint firstItem="ue9-21-x7a" firstAttribute="leading" secondItem="TY4-CW-qbX" secondAttribute="leading" id="UGX-Ta-jt0"/>
+                                            <constraint firstAttribute="bottom" secondItem="ue9-21-x7a" secondAttribute="bottom" id="URj-zK-yE0"/>
+                                            <constraint firstAttribute="trailing" secondItem="ue9-21-x7a" secondAttribute="trailing" id="Wj8-FR-IRh"/>
+                                            <constraint firstAttribute="bottom" secondItem="ue9-21-x7a" secondAttribute="bottom" id="aTT-kq-q3T"/>
+                                            <constraint firstItem="ue9-21-x7a" firstAttribute="top" secondItem="TY4-CW-qbX" secondAttribute="top" id="eHo-Mw-Of4"/>
+                                            <constraint firstItem="ue9-21-x7a" firstAttribute="leading" secondItem="TY4-CW-qbX" secondAttribute="leading" id="iMG-Hu-0Mv"/>
+                                            <constraint firstAttribute="trailing" secondItem="ue9-21-x7a" secondAttribute="trailing" id="l4a-qz-evO"/>
+                                            <constraint firstItem="ue9-21-x7a" firstAttribute="top" secondItem="TY4-CW-qbX" secondAttribute="top" id="mlK-Kd-k8e"/>
+                                            <constraint firstItem="ue9-21-x7a" firstAttribute="centerY" secondItem="TY4-CW-qbX" secondAttribute="centerY" id="xhM-t6-zd0"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="FsI-co-710" firstAttribute="leading" secondItem="ucA-Wy-uRz" secondAttribute="leading" id="2MS-YJ-Wsj"/>
-                                    <constraint firstItem="ucA-Wy-uRz" firstAttribute="top" secondItem="qBz-yA-fiN" secondAttribute="top" id="BWA-uZ-qBz"/>
-                                    <constraint firstItem="FsI-co-710" firstAttribute="top" secondItem="qBz-yA-fiN" secondAttribute="top" constant="565" id="OId-VO-OiP"/>
-                                    <constraint firstAttribute="bottom" secondItem="FsI-co-710" secondAttribute="bottom" constant="8" id="Sh4-sS-czA"/>
-                                    <constraint firstItem="ucA-Wy-uRz" firstAttribute="leading" secondItem="qBz-yA-fiN" secondAttribute="leading" id="dEa-7H-f7V"/>
-                                    <constraint firstItem="ucA-Wy-uRz" firstAttribute="centerX" secondItem="qBz-yA-fiN" secondAttribute="centerX" id="di5-2I-qKW"/>
-                                    <constraint firstAttribute="trailing" secondItem="ucA-Wy-uRz" secondAttribute="trailing" id="dyq-cP-Rtz"/>
-                                    <constraint firstItem="FsI-co-710" firstAttribute="trailing" secondItem="ucA-Wy-uRz" secondAttribute="trailing" id="tZ6-xv-1AD"/>
+                                    <constraint firstItem="TY4-CW-qbX" firstAttribute="centerX" secondItem="ucA-Wy-uRz" secondAttribute="centerX" id="Czp-ei-ArF"/>
+                                    <constraint firstItem="TY4-CW-qbX" firstAttribute="centerY" secondItem="ucA-Wy-uRz" secondAttribute="centerY" id="P8k-nb-dcH"/>
                                 </constraints>
-                            </scrollView>
+                            </stackView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Give your post a title:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FsI-co-710">
+                                <rect key="frame" x="0.0" y="625" width="375" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qBz-yA-fiN" firstAttribute="bottom" secondItem="FC2-Ho-33G" secondAttribute="bottom" id="6dX-oP-ltD"/>
-                            <constraint firstItem="qBz-yA-fiN" firstAttribute="top" secondItem="FC2-Ho-33G" secondAttribute="top" id="Qa7-ac-3yd"/>
-                            <constraint firstItem="qBz-yA-fiN" firstAttribute="leading" secondItem="5qO-kU-gwj" secondAttribute="leading" id="USc-6r-Y3H"/>
-                            <constraint firstAttribute="trailing" secondItem="qBz-yA-fiN" secondAttribute="trailing" id="l1x-7c-yRo"/>
+                            <constraint firstAttribute="trailing" secondItem="ucA-Wy-uRz" secondAttribute="trailing" id="4fP-Dj-vjT"/>
+                            <constraint firstItem="ucA-Wy-uRz" firstAttribute="leading" secondItem="5qO-kU-gwj" secondAttribute="leading" id="B73-fs-18C"/>
+                            <constraint firstItem="ucA-Wy-uRz" firstAttribute="centerY" secondItem="5qO-kU-gwj" secondAttribute="centerY" id="Wxy-Ej-Vgo"/>
+                            <constraint firstItem="ucA-Wy-uRz" firstAttribute="leading" secondItem="FsI-co-710" secondAttribute="leading" id="YBu-5b-P0c"/>
+                            <constraint firstItem="ucA-Wy-uRz" firstAttribute="trailing" secondItem="FsI-co-710" secondAttribute="trailing" id="ueh-rD-AAI"/>
+                            <constraint firstItem="FsI-co-710" firstAttribute="top" secondItem="ucA-Wy-uRz" secondAttribute="bottom" constant="8" symbolic="YES" id="viv-t6-cg5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FC2-Ho-33G"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="mhx-pp-0Mu">
                         <barButtonItem key="rightBarButtonItem" title="Post" id="xI9-6d-3fb">
                             <connections>
-                                <action selector="createPost:" destination="Smk-pV-9g7" id="Qkj-Uj-dWD"/>
+                                <action selector="postButtonTapped:" destination="Smk-pV-9g7" id="90Y-q5-dMR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="imageView" destination="ue9-21-x7a" id="U36-Xf-BIT"/>
-                        <outlet property="postButton" destination="xI9-6d-3fb" id="gv4-dp-xgD"/>
-                        <outlet property="titleTextField" destination="FsI-co-710" id="gT3-db-V5S"/>
+                        <outlet property="imageView" destination="ue9-21-x7a" id="x6h-eg-vfk"/>
+                        <outlet property="postButton" destination="xI9-6d-3fb" id="cp8-Jf-Lbz"/>
+                        <outlet property="titleTextField" destination="FsI-co-710" id="J4t-WD-Yt4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2d6-bd-UpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -915,6 +917,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eIR-2L-jg1"/>
+        <segue reference="GbQ-tN-G2N"/>
     </inferredMetricsTieBreakers>
 </document>

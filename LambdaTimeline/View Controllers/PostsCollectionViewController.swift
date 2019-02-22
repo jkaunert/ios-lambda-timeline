@@ -14,7 +14,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView!.register(VideoPostCollectionViewCell.self, forCellWithReuseIdentifier: "VideoPostCell")
         postController.observePosts { (_) in
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -115,7 +115,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             self.performSegue(withIdentifier: "ViewImagePost", sender: nil)
         }
         if let cell = cell as? VideoPostCollectionViewCell,
-            cell.videoView != nil {
+            cell.imageView != nil {
             self.performSegue(withIdentifier: "ViewVideoPost", sender: nil)
         }
         
@@ -183,8 +183,11 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             destinationVC?.postController = postController
             
         } else if segue.identifier == "AddVideoPost" {
-            let destinationVC = segue.destination as? VideoPostViewController
+            let destinationVC = segue.destination as? CameraViewController
+            
             destinationVC?.postController = postController
+            
+            
             
         }else if segue.identifier == "ViewImagePost" {
             
